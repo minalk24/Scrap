@@ -1,3 +1,6 @@
+// =============================
+// Connect to the MongoDB
+// =============================
 // If deployed, use the deployed database. Otherwise use the local database called "newsArticles"
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsArticles";
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
@@ -52,6 +55,10 @@ app.use(express.static("public"));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// =============================
+// Routes
+// =============================
 
 // =============================
 // Start the server
