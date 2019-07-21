@@ -60,6 +60,11 @@ app.set("view engine", "handlebars");
 // Routes
 // =============================
 
+// define the route to display the home page
+app.get("/", function(req, res) {
+    res.render("index");
+});
+
 // =============================
 // Start the server
 // =============================
