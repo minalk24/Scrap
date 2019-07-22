@@ -1,9 +1,4 @@
-// =============================
-// Connect to the MongoDB
-// =============================
-// If deployed, use the deployed database. Otherwise use the local database called "newsArticles"
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsArticles";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
 
 // =============================
 // Dependencies
@@ -55,6 +50,13 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // =============================
+// Connect to the MongoDB
+// =============================
+// If deployed, use the deployed database. Otherwise use the local database called "newsArticles"
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsArticles";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+// =============================
 // Routes
 // =============================
 
@@ -65,6 +67,8 @@ app.get("/", function (req, res) {
 
 // define the route to scrape NYT website
 app.get("/scrape", function (req, res) {
+    //delete all that in the "Article" 
+    db.Article.deleteMany({});
     // grab the body of the html with axios
     axios.get("https://www.nytimes.com/").then(function (response) {
         // load that into cheerio and save it to $ for a shorthand selector
@@ -118,6 +122,23 @@ app.get("/articles", function (req, res) {
             res.json(err);
         });
 });
+
+// define the route to save article when "save" button clicked
+app.post("/save-article/:id", function (req, res) {
+    // find and update the article corresponding to the id
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true }, { new: true })
+        .then(function (dbArticle) {
+            // View the added result in the console
+            console.log(dbArticle);
+        })
+        .catch(function (err) {
+            // If an error occurred, log it
+            console.log(err);
+        })
+    // close the connection
+    res.end();
+});
+
 // =============================
 // Start the server
 // =============================
