@@ -1,0 +1,24 @@
+body{
+    font-family: cursive;
+}
+.article-title {
+    color: black;
+    font-weight: bold;
+}
+
+.article-title:hover {
+    color: blue;
+}
+
+.note-button {
+    background-color: #254d2a;
+}
+
+.save-button{
+    background-color: #4d2545;
+    color:white;
+}
+
+.btn{
+    border-radius: 50%;
+}
