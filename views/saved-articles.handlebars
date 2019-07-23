@@ -1,0 +1,52 @@
+<div class="container mt-3 text-center mx-auto">
+
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="#">NYTimes</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a href="/" class="nav-link btn p-1 ml-3">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row mt-5 mb-5">
+        <div class="col mx-auto">
+            <div class="card">
+                {{#each data}}
+                    <div id="news-articles" class="card mt-2">
+                        <div class="card-body">
+                            <a class="card-link" href="https://www.nytimes.com{{url}}" target='_blank'><h5 class="card-title article-title">{{title}}</h5></a>
+                            <p class="card-text">{{summary}}</p>
+                            <button class="btn btn-danger delete-saved-article mb-5" data-id={{_id}}>Delete</button>
+                            <button class="btn text-white note-button mb-5" data-id={{_id}}>Note</button>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-notes" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="header-note" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="new-note"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
