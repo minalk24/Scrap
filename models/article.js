@@ -44,5 +44,4 @@ var ArticleSchema = new Schema({
 // uing the mongoose model method
 var Article = mongoose.model("Article", ArticleSchema);
 
-// export it so it is available for other files
 module.exports = Article; 
