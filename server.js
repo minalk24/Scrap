@@ -40,12 +40,8 @@ app.use(express.json());
 // by generating a route itself for everything within the "public" folder
 app.use(express.static("public"));
 
-
-// ---------------------------------------------------
-// Set handlebars as the default templating engine
-// ---------------------------------------------------
 // =============================
-// Dependencies
+// Set handlebars as the default templating engine
 // =============================
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));

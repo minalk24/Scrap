@@ -61,6 +61,7 @@ $(document).on("click", ".delete-saved-article", function(event) {
 
 // on click functionality on the "note" button to add note to a saved article
 $(document).on("click", ".note-button", function() {
+
     // Empty the notes from the note section so we don't get a new text area
     // each time we click on the "note" button
     $("#new-note").empty();
@@ -72,10 +73,23 @@ $(document).on("click", ".note-button", function() {
     $.ajax("/note-article/" + articleID, {
         method: "GET"
     }).then(function(data) {
-        console.log(data);
+        console.log(data.note);
 
         // add a header to the modal
-        $("#header-note").text("Note for: '" + data.title +"'");
+       $("#header-note").text("Note for: '" + data.title +"'");
+       if(data.note.length > 0) {
+            var notewrap = $("<div>").addClass("note-wrap");
+            for(var i = 0; i <data.note.length; i++){
+                var div = $("<div>")
+                var body = $("<p>").text(data.note[i].body)
+                var btn = $("<span>").addClass("delete-note").text("X").attr("data-id", data.note[i]._id);
+                $(div).append(body, btn);
+                $(notewrap).append(div);
+            }
+           
+            $("#header-note").append(notewrap);
+       }
+       
         // add a textarea to be able to write the note
         $("#new-note").append("<textarea class='w-100' id='body-input' name='body'></textarea>");
         // add a button to save the note
@@ -99,12 +113,10 @@ $(document).on("click", ".note-button", function() {
 $(document).on("click", ".save-note", function() {
     // grab the id of the article whose button has been clicked
     var articleID = $(this).data("id");
-
     // grab the text entered
     var data = {
         body: $("#body-input").val().trim()
     }
-
     // post request
     $.ajax("/note-article/" + articleID, {
         method: "POST",
@@ -113,6 +125,21 @@ $(document).on("click", ".save-note", function() {
         // Log the response
         console.log(data);
         // close the modal
+        $("#modal-notes").modal("toggle");
+    });
+});
+
+$(document).on("click", ".delete-note", function() {
+    var articleNoteID = $(this).data("id");
+    console.log(articleNoteID)
+    event.preventDefault();
+    
+    // post request
+    $.ajax("/note-article/" + articleNoteID, {
+        method: "DELETE",
+        contentType:'application/json',
+    }).then(function(data) {     
+        console.log(data);     
         $("#modal-notes").modal("toggle");
     });
 });

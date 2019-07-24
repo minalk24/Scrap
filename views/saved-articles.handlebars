@@ -1,4 +1,4 @@
-<div class="container mt-3 text-center mx-auto">
+<div class="container mt-3 text-center mx-auto bg-blur">
 
      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
@@ -25,6 +25,13 @@
                             <p class="card-text">{{summary}}</p>
                             <button class="btn btn-danger delete-saved-article mb-5" data-id={{_id}}>Delete</button>
                             <button class="btn text-white note-button mb-5" data-id={{_id}}>Note</button>
+                            {{!-- {{#if note}}
+                                {{#each note}}
+                                    <div data-noteid={{this._id}}>
+                                        <p>{{this.body}}</p>
+                                    </div>
+                                {{/each}}
+                            {{/if}} --}}
                         </div>
                     </div>
                 {{/each}}
