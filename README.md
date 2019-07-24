@@ -1,11 +1,11 @@
 ## Scrap
 
-[Launch the application from the Heroku website!]()
+[Launch the application from the Heroku website!](https://aqueous-ridge-62591.herokuapp.com/)
 
 ## Screenshots of the Website
 
-### News Scraper
-![News](public/assets/images/scrape.png)
+<!-- ### News Scraper
+![News](public/assets/images/scrape.png) -->
 
 ## Description
 Create a web app that lets users view and leave comments on the latest news.
@@ -16,7 +16,7 @@ Create a web app that lets users view and leave comments on the latest news.
 | --------------- | --------- |
 | HTML | https://developer.mozilla.org/en-US/docs/Learn/HTML |
 | CSS | https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS |
-| Bootstrap |  |
+| Bootstrap |  https://getbootstrap.com/ |
 | JavaScript | https://www.javascript.com/ |
 | jQuery | https://jquery.com/ |
 | NodeJs | https://nodejs.org/en/ |
