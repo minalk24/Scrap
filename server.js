@@ -84,11 +84,12 @@ app.get("/", function(req, res) {
 // define the route to display the "saved articles" page
 app.get("/saved-articles", function(req, res) {
     db.Article.find({saved:true})
+        .populate("note")
         .then(function(dbArticle) {
             var hbsObj = {
                 data: dbArticle
             }
-            console.log(hbsObj);
+            // console.log("asghasgdjasda",dbArticle[0].note[0]);
             // If we were able to successfully find Articles
             // render the page with the data
             res.render("saved-articles", hbsObj);
@@ -195,8 +196,9 @@ app.get("/note-article/:id", function(req, res) {
     // find one - the saved article whose "note" button has been clicked
     db.Article.findOne({ _id: req.params.id })
         // populate all of the notes associated with it
-        .populate("notes")
+        .populate("note")
         .then(function(dbArticle) {
+            // console.log("dbArticle", dbArticle)
             // If we were able to successfully find an Article with the given id, send it back to the client
             res.json(dbArticle);
         })
@@ -212,7 +214,7 @@ app.post("/note-article/:id", function(req, res) {
     db.Note.create(req.body)
         .then(function(dbNote) {
             // once the new note has been created, find the associate article and update its notes with the note just created
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { note: dbNote._id } }, { new: true });
         })
         .then(function(dbArticle) {
             // If we were able to successfully update an Article, send it back to the client
@@ -222,6 +224,17 @@ app.post("/note-article/:id", function(req, res) {
             // If an error occurred, send it to the client
             res.json(err);
         });
+});
+
+
+app.delete("/note-article/:id", function(req, res) {
+   console.log("deleting note...", req.params.id);
+   
+    db.Note.deleteOne({ _id: req.params.id })
+        .then(function(dbNote) {
+             res.json(dbNote);
+        })
+     
 });
 
 // =============================
